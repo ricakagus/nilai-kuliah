@@ -24,6 +24,9 @@ class MahasiswaC extends CI_Controller
   {
     $data['title'] = 'Mahasiswa';
 
+    // form_validation adalah library CI untuk memvalidasi inputan yang dilakukan oleh user
+    // untuk menggunakan form_validation harus dikenalkan dulu pada file autoload.php yang direktorinya pada: config/autoload.php
+
     $this->form_validation->set_rules('nim', 'NIM', 'required|numeric');
     $this->form_validation->set_rules('nama', 'Nama', 'required');
 
@@ -34,13 +37,18 @@ class MahasiswaC extends CI_Controller
       $this->load->view('mahasiswa/inputmahasiswa');
       $this->load->view('layouts/footer');
     } else {
+
+      // mentiapkan data inputan dari view (html) disimpan pada index yg berupa array yang diberinama $data
       $data = [
         "nim" => $this->input->post('nim'),
         "nama" => $this->input->post('nama'),
         "prodi" => $this->input->post('prodi')
       ];
 
+      // format codingan Query builder untuk menyimpan $data pada tabel mahasiwa
       $this->db->insert('tb_mahasiswa', $data);
+
+      // setelah selesai proses simpan lalu diarahkan ke halaman index mahasiswa
       redirect('mahasiswa');
     }
   }
@@ -49,10 +57,34 @@ class MahasiswaC extends CI_Controller
   {
     $data['title'] = "Mahasiswa";
 
+    // menampilkan data mahasiswa berdasarkan id dan ditampilkan satu bari data
     $data['mahasiswa'] = $this->db->get_where('tb_mahasiswa', ['id' => $id])->row_array();
 
-    var_dump($data['mahasiswa']);
-    die;
+    $this->form_validation->set_rules('nim', 'NIM', 'required|numeric');
+    $this->form_validation->set_rules('nama', 'Nama', 'required');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('layouts/header', $data);
+      $this->load->view('layouts/navbar');
+      $this->load->view('layouts/sidebar', $data);
+      $this->load->view('mahasiswa/detailmahasiswa', $data);
+      $this->load->view('layouts/footer');
+    } else {
+
+      // mentiapkan data inputan dari view (html) disimpan pada index yg berupa array yang diberinama $data
+      $data = [
+        "nim" => $this->input->post('nim'),
+        "nama" => $this->input->post('nama'),
+        "prodi" => $this->input->post('prodi')
+      ];
+
+      // format codingan Query builder untuk mengupdate $data pada tabel mahasiwa berdasakan id tertentu
+      $this->db->where('id', $id);
+      $this->db->update('tb_mahasiswa', $data);
+
+      // setelah selesai proses simpan lalu diarahkan ke halaman index mahasiswa
+      redirect('mahasiswa');
+    }
   }
 
   public function updateMahasiswa($id)
