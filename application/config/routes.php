@@ -66,4 +66,4 @@ $route['mahasiswa/update/(:any)'] = 'mahasiswac/updatemahasiswa/$1';
 $route['mahasiswa/delete/(:any)'] = 'mahasiswac/deletemahasiswa/$1';
 
 
-// $route['halo'] = 'mahasiswaC';
+

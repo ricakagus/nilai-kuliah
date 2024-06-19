@@ -87,13 +87,10 @@ class MahasiswaC extends CI_Controller
     }
   }
 
-  public function updateMahasiswa($id)
-  {
-    echo "update data mahasiswa " . $id;
-  }
 
   public function deleteMahasiswa($id)
   {
-    echo "hapus data mahasiswa " . $id;
+    $this->db->delete('tb_mahasiswa', ['id' => $id]);
+    redirect('mahasiswa');
   }
 }
