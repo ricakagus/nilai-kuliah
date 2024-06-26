@@ -67,6 +67,6 @@ $route['mahasiswa/delete/(:any)'] = 'mahasiswac/deletemahasiswa/$1';
 
 
 $route['kontrak'] = 'kontraknilaic';
-$route['kontrak/input'] = 'kontraknilaic/inputkontrak';
+$route['kontrak/input'] = 'KontraknilaiC/inputkontrak';
 $route['kontrak/detail/(:any)'] = 'kontraknilaic/detailkontrak/$1';
 $route['kontrak/delete/(:any)'] = 'kontraknilaic/deletekontrak/$1';

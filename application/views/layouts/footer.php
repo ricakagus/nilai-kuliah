@@ -31,6 +31,9 @@
   <!-- <script src="<?= base_url('assets'); ?>/plugins/datatables-buttons/js/buttons.print.min.js"></script> -->
   <!-- <script src="<?= base_url('assets'); ?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script> -->
 
+  <!-- Toastr -->
+  <script src="../../plugins/toastr/toastr.min.js"></script>
+
   <!-- AdminLTE App -->
   <script src="<?= base_url('assets'); ?>/dist/js/adminlte.min.js"></script>
 
