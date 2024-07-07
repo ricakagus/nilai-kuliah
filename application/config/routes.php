@@ -70,3 +70,11 @@ $route['kontrak'] = 'kontraknilaic';
 $route['kontrak/input'] = 'KontraknilaiC/inputkontrak';
 $route['kontrak/detail/(:any)'] = 'kontraknilaic/detailkontrak/$1';
 $route['kontrak/delete/(:any)'] = 'kontraknilaic/deletekontrak/$1';
+
+
+$route['nilai'] = 'nilaikuliahc';
+$route['nilai/input'] = 'nilaikuliahc/inputnilai';
+$route['nilai/detail/(:any)'] = 'nilaikuliahc/detailnilai/$1';
+$route['nilai/delete/(:any)'] = 'nilaikuliahc/deletenilai/$1';
+$route['nilai/edit/(:any)'] = 'nilaikuliahc/editnilai/$1';
+$route['nilai/deletemhs/(:any)'] = 'nilaikuliahc/deletenilai/$1';

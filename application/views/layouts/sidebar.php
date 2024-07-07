@@ -51,13 +51,13 @@
               <?php else : ?>
                 <a href="<?= base_url('matakuliah'); ?>" class="nav-link">
                 <?php endif; ?>
-                <i class="nav-icon fas fa-book"></i>
+                <i class="nav-icon far fa-circle"></i>
                 <p>Mata Kuliah <!-- <span class="right badge badge-danger">New</span> --> </p>
                 </a>
           </li>
           <li class="nav-item">
             <a href="<?= base_url('kontrak'); ?>" class="nav-link">
-              <i class="nav-icon fas fa-hands-helping"></i>
+              <i class="nav-icon far fa-circle "></i>
               <p>Kontrak Nilai <!-- <span class="right badge badge-danger">New</span> --> </p>
             </a>
           </li>
@@ -67,8 +67,18 @@
               <?php else : ?>
                 <a href="<?= base_url('mahasiswa'); ?>" class="nav-link">
                 <?php endif; ?>
-                <i class="nav-icon fas fa-hands-helping"></i>
+                <i class="nav-icon far fa-circle "></i>
                 <p>Mahasiswa</p>
+                </a>
+          </li>
+          <li class="nav-item">
+            <?php if ($title == 'Nilai Kuliah') : ?>
+              <a href="<?= base_url('nilai'); ?>" class="nav-link active">
+              <?php else : ?>
+                <a href="<?= base_url('nilai'); ?>" class="nav-link">
+                <?php endif; ?>
+                <i class="nav-icon far fa-circle "></i>
+                <p>Nilai Kuliah</p>
                 </a>
           </li>
         </ul>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jun 19, 2024 at 09:33 AM
+-- Generation Time: Jul 07, 2024 at 07:50 PM
 -- Server version: 5.7.39
 -- PHP Version: 5.6.40
 
@@ -35,8 +35,8 @@ CREATE TABLE `tbKontrakNilai` (
 --
 
 INSERT INTO `tbKontrakNilai` (`id`, `tahunAkademik`, `mataKuliah`, `kehadiran`, `tugas`, `UTS`, `UAS`) VALUES
-(1, 20221, 'SPK', 15, 20, 30, 35),
-(2, 20231, 'SPK', 15, 20, 30, 35);
+(1, 20221, 'Sistem Pendukung Keputusan', 15, 20, 30, 35),
+(3, 20221, 'Bahasa Indonesia', 20, 20, 25, 35);
 
 -- --------------------------------------------------------
 
@@ -58,8 +58,8 @@ CREATE TABLE `tbMataKuliah` (
 --
 
 INSERT INTO `tbMataKuliah` (`id`, `kodeMK`, `nama`, `sksTeori`, `sksPraktik`, `totalSKS`) VALUES
-(1, 'kode1', 'mata kuliah 1', 2, NULL, 2),
-(2, 'Kode 2', 'Jadi Nama Mata Kuliah 2', 1, 4, 5);
+(2, 'MKU103', 'Bahasa Indonesia', 2, 0, 2),
+(3, 'SE606', 'Sistem Pendukung Keputusan', 1, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -70,57 +70,26 @@ INSERT INTO `tbMataKuliah` (`id`, `kodeMK`, `nama`, `sksTeori`, `sksPraktik`, `t
 CREATE TABLE `tbNilaiAkhir` (
   `id` int(11) NOT NULL,
   `tahunAkademik` int(11) NOT NULL,
-  `mataKuliah` int(11) NOT NULL,
+  `kodeMK` varchar(8) NOT NULL,
+  `mataKuliah` varchar(64) NOT NULL,
   `nim` int(11) NOT NULL,
-  `nama` int(11) NOT NULL,
-  `nilaiTugasTeori` int(11) NOT NULL,
-  `nilaiTugasPraktek` int(11) NOT NULL,
-  `nilaiTugas` int(11) NOT NULL,
-  `nilaiUTS` int(11) NOT NULL,
-  `nilaiUAS` int(11) NOT NULL,
-  `nilaiAkhir` int(11) NOT NULL,
-  `nilaiHuruf` int(11) NOT NULL
+  `nama` varchar(64) NOT NULL,
+  `nilaiKehadiran` float NOT NULL,
+  `nilaiTugas` float NOT NULL,
+  `nilaiUTS` float NOT NULL,
+  `nilaiUAS` float NOT NULL,
+  `nilaiAkhir` float NOT NULL,
+  `nilaiHuruf` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `tbNilaiTugasPraktek`
+-- Dumping data for table `tbNilaiAkhir`
 --
 
-CREATE TABLE `tbNilaiTugasPraktek` (
-  `id` int(11) NOT NULL,
-  `tahunAkademik` varchar(10) NOT NULL,
-  `mataKuliah` varchar(256) NOT NULL,
-  `noTugas` int(11) NOT NULL,
-  `toipkTugas` varchar(256) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbNilaiTugasTeori`
---
-
-CREATE TABLE `tbNilaiTugasTeori` (
-  `id` int(11) NOT NULL,
-  `tahunAkademik` varchar(10) NOT NULL,
-  `mataKuliah` varchar(256) NOT NULL,
-  `noTugas` int(11) NOT NULL,
-  `toipkTugas` varchar(256) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbTahunAkademik`
---
-
-CREATE TABLE `tbTahunAkademik` (
-  `id` int(11) NOT NULL,
-  `tahun` varchar(10) NOT NULL,
-  `status` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `tbNilaiAkhir` (`id`, `tahunAkademik`, `kodeMK`, `mataKuliah`, `nim`, `nama`, `nilaiKehadiran`, `nilaiTugas`, `nilaiUTS`, `nilaiUAS`, `nilaiAkhir`, `nilaiHuruf`) VALUES
+(1, 20221, 'MKU103', 'Bahasa Indonesia', 201904001, 'Annisa', 90, 60, 60, 50, 62.5, 'C'),
+(3, 20221, 'SE606', 'Sistem Pendukung Keputusan', 202004010, 'Alfina', 90, 90, 90, 90, 90, 'A'),
+(5, 20221, 'MKU103', 'Bahasa Indonesia', 202004008, 'Chandra Ardiansyah', 60, 90, 60, 90, 76.5, 'B');
 
 -- --------------------------------------------------------
 
@@ -141,8 +110,10 @@ CREATE TABLE `tb_mahasiswa` (
 
 INSERT INTO `tb_mahasiswa` (`id`, `nim`, `nama`, `prodi`) VALUES
 (1, '201904001', 'Annisa', 'TRPL'),
-(2, '201904002', 'Algi', 'TRPL'),
-(3, '202004010', 'Alfina', 'TRPL');
+(2, '201904002', 'Algi', 'TRMK'),
+(3, '202004010', 'Alfina', 'TL'),
+(4, '202004003', 'Raza', 'TRPL'),
+(5, '202004008', 'Chandra Ardiansyah', 'TRPL');
 
 --
 -- Indexes for dumped tables
@@ -161,21 +132,9 @@ ALTER TABLE `tbMataKuliah`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tbNilaiTugasPraktek`
+-- Indexes for table `tbNilaiAkhir`
 --
-ALTER TABLE `tbNilaiTugasPraktek`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbNilaiTugasTeori`
---
-ALTER TABLE `tbNilaiTugasTeori`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbTahunAkademik`
---
-ALTER TABLE `tbTahunAkademik`
+ALTER TABLE `tbNilaiAkhir`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -192,34 +151,22 @@ ALTER TABLE `tb_mahasiswa`
 -- AUTO_INCREMENT for table `tbKontrakNilai`
 --
 ALTER TABLE `tbKontrakNilai`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbMataKuliah`
 --
 ALTER TABLE `tbMataKuliah`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `tbNilaiTugasPraktek`
+-- AUTO_INCREMENT for table `tbNilaiAkhir`
 --
-ALTER TABLE `tbNilaiTugasPraktek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tbNilaiTugasTeori`
---
-ALTER TABLE `tbNilaiTugasTeori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tbTahunAkademik`
---
-ALTER TABLE `tbTahunAkademik`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tbNilaiAkhir`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_mahasiswa`
 --
 ALTER TABLE `tb_mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
